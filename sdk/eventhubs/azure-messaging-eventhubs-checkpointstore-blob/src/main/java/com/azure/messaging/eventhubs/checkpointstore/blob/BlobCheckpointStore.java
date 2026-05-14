@@ -239,7 +239,7 @@ public class BlobCheckpointStore implements CheckpointStore {
      * Updates the checkpoint in Storage Blobs for a partition.
      *
      * @param checkpoint Checkpoint information containing sequence number and offset to be stored for this partition.
-     * @return The new ETag on successful update.
+     * @return A {@link Mono} that completes when the checkpoint has been updated.
      */
     @Override
     public Mono<Void> updateCheckpoint(Checkpoint checkpoint) {

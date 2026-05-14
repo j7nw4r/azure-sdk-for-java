@@ -315,7 +315,11 @@ public class BlobCheckpointStoreTests {
     }
 
     /**
-     * Tests that an offsetString-only checkpoint is accepted by the validation guard (preserving previous behavior).
+     * Tests that a checkpoint with only {@code offsetString} populated (no {@code sequenceNumber} and no deprecated
+     * {@code offset} Long) is now accepted by the validation guard. Previously, such a checkpoint would have been
+     * rejected because the guard only inspected {@code sequenceNumber} and {@code offset}; this is intentional new
+     * behavior so that callers using string-based offsets (required for newer Event Hubs offset formats that are not
+     * representable as a long) can successfully update checkpoints.
      */
     @Test
     public void testUpdateCheckpointOffsetStringOnlyIsValid() {
